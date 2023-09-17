@@ -1,3 +1,3 @@
-./server/node_modules
-./server/test
-./server/.env
+/server/node_modules/
+/server/test
+/server/.env

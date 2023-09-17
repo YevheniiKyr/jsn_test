@@ -1,11 +1,12 @@
 require(`dotenv`).config()
-
+const router = require("./routers/index");
 const mongoose = require("mongoose")
 const express = require('express')
 const path = require("path");
 const cors = require("cors")
 const fileUpload = require('express-fileupload')
 const errorHandler = require("./middlewares/errorHandler")
+
 const DB_URL = process.env.DB_URL
 const PORT = process.env.PORT || 5000
 
@@ -21,5 +22,6 @@ app.use(errorHandler)
 app.use(express.json())
 app.use(express.static(path.resolve(__dirname, 'static')))
 app.use(fileUpload({}))
+app.use(router)
 
-app.listen(PORT, ()=>console.log("server is started"))
+app.listen(PORT, ()=>console.log("server is started on Port", PORT))

@@ -1,15 +1,20 @@
-import NotFoundException from "../exceptions/NotFoundException";
-import ValidationException from "../exceptions/ValidationException";
+const NotFoundException = require("../exceptions/NotFoundException");
+const ValidationException = require("../exceptions/ValidationException");
 
-const errorHandler = (error, req, res) => {
+
+ errorHandler = (error, req, res, next) => {
     if (error instanceof NotFoundException) {
-        return res.status(error.status).json({message: error.message});
+        return res.status(error.status).json({ message: error.message });
     }
     if (error instanceof ValidationException) {
         return res.status(400).send({
             message: error.message,
         });
-    } else return res.status(500).json({message: error.message});
-};
+    } else {
+        // Call next(error) to pass the error to the next middleware (e.g., the default error handler)
+        next(error);
+    }
+}
 
-export default errorHandler;
+module.exports = errorHandler;
+
