@@ -1,0 +1,33 @@
+.spinner {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.image {
+    height: 30vh;
+    padding: 1rem;
+    align-self: center;
+    margin-top: 1rem;
+}
+
+.card {
+    margin-top: 1rem;
+    cursor: pointer;
+    width: 20vw;
+    color: black;
+}
+
+.heroList {
+    margin-top: 2rem;
+}
+
+.addHero{
+    margin-top: 2rem;
+}
+.logo {
+    height: 5rem;
+    width: 5rem;
+    cursor: pointer;
+
+}

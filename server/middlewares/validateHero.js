@@ -30,8 +30,9 @@ const Schemas = {
         }),
     },
     files: {
-        upload: Joi.array().items(
-            Joi.any()
+        upload: Joi.any()
+        // upload: Joi.array().items(
+        //     Joi.any()
 
         //     Joi.object({
         //     fieldname: Joi.string().valid('images').required(),
@@ -41,7 +42,7 @@ const Schemas = {
         //     buffer: Joi.binary().required(),
         // })
 
-        )
+        // )
     }
 };
 

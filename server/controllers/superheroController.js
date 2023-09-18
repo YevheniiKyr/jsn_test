@@ -11,13 +11,21 @@ class SuperheroController {
         console.log('create hero')
 
         const {nickname, real_name, origin_description, superpowers, catch_phrase} = req.body
-        const {images} = req.files
+        let {images} = req.files
         let fileNames = []
-        await images.map(image => {
-            let fileName = uuid.v4()
-            image.mv(path.resolve(__dirname, '..', 'static', fileName + '.jpg'))
+
+        if (!Array.isArray(images)) {
+            let image = images
+            images = []
+            images.push(image)
+        }
+
+        images.map(image => {
+            let fileName = uuid.v4() + '.jpg'
+            image.mv(path.resolve(__dirname, '..', 'static', fileName))
             fileNames.push(fileName)
         })
+
         console.log('FILENAMES', fileNames)
         const hero = await Superhero.create({
             nickname,
