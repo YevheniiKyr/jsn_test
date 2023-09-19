@@ -4,9 +4,9 @@ import styles from "./styles.module.css";
 
 const ImagesList = ({images}) => {
     return (
-        <Carousel className={styles.carousel} style={{marginTop: '3rem'}}>
+        <Carousel className={styles.carousel}>
             {images.map((image, idx) =>
-                <Carousel.Item>
+                <Carousel.Item style={{cursor: "pointer"}}>
                     <img
                         className={styles.carousel_image}
                         src={process.env.REACT_APP_API_URL + image}

@@ -21,6 +21,7 @@ const SuccessModal = ({show, onHide, message, heroId}) => {
                     <Button style={{marginRight: '3rem'}} variant="outline-info" onClick={
                         () => {
                             navigate(SUPERHERO_ROUTE + '/' + heroId)
+                            onHide()
                         }
                         // onHide
                     }>Hero page</Button>

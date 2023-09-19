@@ -20,12 +20,12 @@ const Index = () => {
             .finally(() =>setLoading(false)
         )
 
-    }, [])
+    }, [id])
     if (loading) return <Spinner className={styles.spinner}/>
     if (error) return <div className={styles.errorMessage}> Service is unavailable now. We are fixing it </div>
 
     return (
-        <Container>
+        <Container style={{background: 'rgb(137,124,166)'}}>
             <ImagesList images={hero.images}/>
             <HeroInfo hero={hero}></HeroInfo>
         </Container>

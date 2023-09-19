@@ -4,16 +4,21 @@ const NotFoundException = require("../exceptions/NotFoundException");
 const path = require("path");
 const uuid = require('uuid')
 const ParamsNotPassed = require("../exceptions/ParamsNotPassed");
+const CantCreateException = require("../exceptions/CantCreateException");
 
 class SuperheroController {
 
     async create(req, res) {
-        console.log('create hero')
+        console.log('create hero server')
 
-        const {nickname, real_name, origin_description, superpowers, catch_phrase} = req.body
+        let {nickname, real_name, origin_description, superpowers, catch_phrase} = req.body
+        console.log('get body')
+
         let {images} = req.files
+
         let fileNames = []
 
+        superpowers = JSON.parse(superpowers)
         if (!Array.isArray(images)) {
             let image = images
             images = []
@@ -26,7 +31,6 @@ class SuperheroController {
             fileNames.push(fileName)
         })
 
-        console.log('FILENAMES', fileNames)
         const hero = await Superhero.create({
             nickname,
             real_name,
@@ -34,8 +38,9 @@ class SuperheroController {
             origin_description,
             superpowers,
             catch_phrase
+        }).catch(() => {
+            throw new CantCreateException('Cant create hero with this fields')
         })
-        if (!hero) throw new Error('Cant create hero with this fields')
         return res.json(hero)
     }
 

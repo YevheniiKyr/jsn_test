@@ -4,7 +4,7 @@ import styles from "./styles.module.css";
 
 const HeroInfo = ({hero}) => {
     return (
-        <Card>
+        <Card style={{padding: '1rem', background: 'rgb(138,131,192)', width:'50%', margin: "auto"}}>
             <div className={styles.title}>
                 {hero.nickname}
             </div>

@@ -3,6 +3,6 @@ exports.tryCatch = (controller) => async (req, res, next) => {
         await controller(req, res);
         next()
     } catch (error) {
-        return next(error);
+        next(error);
     }
 };

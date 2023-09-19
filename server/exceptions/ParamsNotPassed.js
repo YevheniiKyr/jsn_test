@@ -3,7 +3,7 @@ class ParamsNotPassed extends Error {
 
     constructor(message, params) {
         super(message + params);
-        this.name = "ParamsNotPassed";
+        this.name = "ParamsNotPassedError";
         this.params = params;
     }
 }

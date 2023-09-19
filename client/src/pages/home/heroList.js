@@ -1,8 +1,7 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import HeroItem from "./heroItem";
-import {Container, Row} from "react-bootstrap";
+import {Row} from "react-bootstrap";
 import styles from './styles.module.css';
-import AddHero from "./AddHero";
 
 const HeroList = ({heroes}) => {
 
@@ -14,7 +13,6 @@ const HeroList = ({heroes}) => {
                   hero => <HeroItem key={hero._id} hero={hero}/>
               )
             }
-            {/*<AddHero className={styles.addHero}></AddHero>*/}
         </Row>
     );
 };

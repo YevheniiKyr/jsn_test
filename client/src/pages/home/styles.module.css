@@ -29,5 +29,7 @@
     height: 5rem;
     width: 5rem;
     cursor: pointer;
-
+}
+.theme {
+    background-color: #d9afc5;
 }

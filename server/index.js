@@ -19,8 +19,8 @@ mongoose.connect(DB_URL, () => {
 
 app.use(cors())
 app.use(express.json())
-app.use(express.static(path.resolve(__dirname, 'static')))
 app.use(fileUpload({}))
+app.use(express.static(path.resolve(__dirname, 'static')))
 app.use(router)
 
 app.use(errorHandler)

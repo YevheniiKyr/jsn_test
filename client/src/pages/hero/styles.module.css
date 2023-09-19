@@ -28,11 +28,14 @@
 .title {
     font-size: 3rem;
     display: flex;
-    justify-content: center
+    justify-content: center;
+    color: #7413ce;
+
 }
 
 .field {
     display: flex;
+    color: #e0d6da;
 }
 
 .field_name {
@@ -47,9 +50,9 @@
 }
 
 .carousel {
-    background-color: grey;
+    background-color: #826eb6;
     height: 30rem;
-    width: 30rem;
+    width: 50%;
     display: flex;
     margin: auto;
 }

@@ -9,11 +9,11 @@ const AddHero = () => {
         <Container>
         <Col md={4} style={{display: "flex", justifyContent: "center", alignSelf: "center"}}>
             <Button
-                variant={'success'}
+                style = {{margin: '0.5rem', color: "white", background: 'rgb(96,115,210)', border: "none"}}
                 size={'lg'}
                 onClick={() => setModalVisible(true)}
             >
-                create new hero </Button>
+                 new hero </Button>
         </Col>
         <AddHeroModal show={modalVisible} onHide={()=>setModalVisible(false)}/>
         </Container>

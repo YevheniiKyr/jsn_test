@@ -9,8 +9,11 @@ const HeroItem = ({hero}) => {
 
     return (
 
-        <Col md = {4} style={{display: "flex", justifyContent:"center"}}>
-            <Card className={styles.card} onClick={
+        <Col md = {6} lg={4} sm={12} style={{display: "flex", justifyContent:"center"}}>
+            <Card
+                className={styles.card}
+                style={{background: 'rgb(147,89,144)'}}
+                onClick={
                 () => {
                     navigate(SUPERHERO_ROUTE + '/' + hero._id)
                 }

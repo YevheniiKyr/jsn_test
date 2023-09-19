@@ -1,6 +1,7 @@
 import {$host} from "./index";
 
 export const createHero = async (hero) => {
+    console.log('create hero client')
     const {data} = await $host.post('superhero/',
         hero
     )

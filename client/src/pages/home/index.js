@@ -27,7 +27,7 @@ const Index = () => {
 
     if (heroes) {
         return (
-            <Container>
+            <Container className={styles.theme}>
                 <Col md={12}>
                     <HeroList heroes={heroes}></HeroList>
                     <Pages current_page={page} count={count} limit={limit} setPage={(page) => setPage(page)}></Pages>
