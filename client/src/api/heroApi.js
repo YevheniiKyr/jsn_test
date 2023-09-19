@@ -8,6 +8,14 @@ export const createHero = async (hero) => {
     return data;
 }
 
+export const updateHero = async (id, hero) => {
+    console.log('update hero client')
+    const {data} = await $host.put(`superhero/${id}`,
+        hero
+    )
+    return data;
+}
+
 export const getHeroes = async (limit, page) => {
     const {data} = await $host.get('superhero/', {
         params: {

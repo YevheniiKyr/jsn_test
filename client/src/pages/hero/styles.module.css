@@ -71,3 +71,19 @@
     align-content: center;
     font-size: 30rem;
 }
+
+.edit_button {
+    color: #f3eee5;
+    background-color: #6ec9c7;
+    border-radius: 20px;
+    width: 4.5rem;
+    height: 3rem;
+    margin-right: 1rem;
+}
+.delete_button {
+    color: #f3eee5;
+    background-color: #d95282;
+    border-radius: 20px;
+    width: 6rem;
+    height: 3rem;
+}

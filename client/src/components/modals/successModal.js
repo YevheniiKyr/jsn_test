@@ -18,13 +18,19 @@ const SuccessModal = ({show, onHide, message, heroId}) => {
             <Modal.Footer>
                 <Container className={'d-flex justify-content-center'}>
                     <Button style={{marginRight: '3rem'}} variant="outline-success" onClick={onHide}>Ok</Button>
-                    <Button style={{marginRight: '3rem'}} variant="outline-info" onClick={
-                        () => {
-                            navigate(SUPERHERO_ROUTE + '/' + heroId)
-                            onHide()
-                        }
-                        // onHide
-                    }>Hero page</Button>
+                    {
+                        heroId &&
+                        (
+                            <Button style={{marginRight: '3rem'}} variant="outline-info" onClick={
+                                () => {
+                                    navigate(SUPERHERO_ROUTE + '/' + heroId)
+                                    onHide()
+                                }
+                            }>
+                                // onHide
+                                Hero page</Button>
+                        )
+                    }
                 </Container>
             </Modal.Footer>
         </Modal>

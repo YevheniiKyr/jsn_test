@@ -5,6 +5,7 @@ const path = require("path");
 const uuid = require('uuid')
 const ParamsNotPassed = require("../exceptions/ParamsNotPassed");
 const CantCreateException = require("../exceptions/CantCreateException");
+const fs = require('fs');
 
 class SuperheroController {
 
@@ -19,16 +20,16 @@ class SuperheroController {
         let fileNames = []
 
         superpowers = JSON.parse(superpowers)
-        if (!Array.isArray(images)) {
-            let image = images
-            images = []
-            images.push(image)
-        }
+        // if (!Array.isArray(images)) {
+        //     let image = images
+        //     images = []
+        //     images.push(image)
+        // }
 
         images.map(image => {
-            let fileName = uuid.v4() + '.jpg'
-            image.mv(path.resolve(__dirname, '..', 'static', fileName))
-            fileNames.push(fileName)
+                let fileName = uuid.v4() + '.jpg'
+                image.mv(path.resolve(__dirname, '..', 'static', fileName))
+                fileNames.push(fileName)
         })
 
         const hero = await Superhero.create({
@@ -73,12 +74,56 @@ class SuperheroController {
         console.log('update hero')
 
         let {id} = req.params
-        const updatedData = req.body
+        console.log('id')
+
+        let {
+            nickname, real_name, origin_description,
+            superpowers, catch_phrase, old_file_names
+        } = req.body
+        console.log('body')
+
+        let images = req.files?.images
+        console.log('files')
+
+        console.log('get params')
+
         const hero = await Superhero.findById(id);
+        console.log('found hero')
         if (!hero) {
             throw new NotFoundException(`Superhero with id ${id} is not found`)
         }
-        const updatedHero = await Superhero.findByIdAndUpdate(id, updatedData, {new: true});
+        let fileNames = []
+        console.log('we have images')
+
+        if(images) {
+            hero.images.map(image => {
+                if (!old_file_names.has(image)) {
+                    const filePath = path.join(__dirname, '..', 'static', image);
+                    fs.unlink(filePath, (err) => {
+                        if (err) {
+                            console.error(`Error deleting file ${image}: ${err}`);
+                        } else {
+                            console.log(`File ${image} has been deleted.`);
+                        }
+                    });
+                }
+            })
+            console.log('we deleted old  images')
+
+            images.map(image => {
+                let fileName = uuid.v4() + '.jpg'
+                image.mv(path.resolve(__dirname, '..', 'static', fileName))
+                fileNames.push(fileName)
+            })
+            console.log('added new files to static')
+
+        }
+
+        superpowers = JSON.parse(superpowers)
+
+        let newHero = {real_name, nickname, origin_description, superpowers, catch_phrase, images: [...old_file_names, ...fileNames]}
+
+        const updatedHero = await Superhero.findByIdAndUpdate(id, newHero, {new: true});
         return res.json(updatedHero)
 
     }

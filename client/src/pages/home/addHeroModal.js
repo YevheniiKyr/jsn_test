@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {Button, Col, Dropdown, Form, Modal, Row} from "react-bootstrap";
 import {createHero} from "../../api/heroApi";
-import ErrorModal from "./errorModal";
-import SuccessModal from "./successModal";
+import ErrorModal from "../../components/modals/errorModal";
+import SuccessModal from "../../components/modals/successModal";
 
 const AddHeroModal = ({show, onHide}) => {
 
@@ -12,7 +12,7 @@ const AddHeroModal = ({show, onHide}) => {
         const [originDesc, setOriginDesc] = useState('')
         const [superpowers, setSuperpowers] = useState([])
         const [catch_phrase, setCatchPhrase] = useState('')
-        const [files, setFiles] = useState()
+        const [files, setFiles] = useState([])
         const [errorVisible, setErrorVisible] = useState(false)
         const [successVisible, setSuccessVisible] = useState(false)
         const [heroId, setHeroId] = useState()
