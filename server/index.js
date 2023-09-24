@@ -17,6 +17,7 @@ mongoose.connect(DB_URL, () => {
     console.log("server connected to db")
 })
 
+
 app.use(cors())
 app.use(express.json())
 app.use(fileUpload({}))
@@ -24,5 +25,6 @@ app.use(express.static(path.resolve(__dirname, 'static')))
 app.use(router)
 
 app.use(errorHandler)
+
 
 app.listen(PORT, ()=>console.log("server is started on Port", PORT))
