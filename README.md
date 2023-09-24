@@ -1,6 +1,6 @@
 # jsn_test
-to follow this instruction you need use npm
-if you use other packet manager, you need find out how to run client-server projects by yourself 
+To follow this instruction you need use npm.
+If you use other packet manager, you need find out how to run client-server projects by yourself 
 1) run server
    - go to the server directory
    - write 'npm install' to install all dependencies
