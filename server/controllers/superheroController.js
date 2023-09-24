@@ -1,39 +1,60 @@
-
 const SuperheroService = require('../services/superheroService')
+const {tryCatch} = require("../utils/tryCatch");
 
 class SuperheroController {
 
     async create(req, res) {
-        const hero = await SuperheroService.create(req.body, req.files.images)
-        return res.json(hero)
+        try {
+            const hero = (await SuperheroService.create(req.body, req.files.images))
+            return res.json(hero)
+        } catch (e) {
+            throw e
+        }
     }
 
     async getAll(req, res) {
-        let {limit, page} = req.query
-        const response = SuperheroService.getAll(limit, page)
-        res.json(response)
+        try {
+            let {limit, page} = req.query
+            const response = (await SuperheroService.getAll(limit, page))
+            res.json(response)
+        } catch (e) {
+            throw e
+        }
     }
 
     async getByID(req, res) {
-        let id = req.params.id
-        const {limit, page} = req.body
-        const hero = SuperheroService.getByID(id, limit, page)
-        res.json(hero);
+        try {
+            let id = req.params.id
+            const {limit, page} = req.body
+            const hero = await (SuperheroService.getByID(id, limit, page))
+            res.json(hero);
+        } catch (e) {
+            throw e
+        }
     }
 
     async update(req, res) {
-        let images = req.files?.images
-        let {id} = req.params
-        const updatedHero = SuperheroService.update(req.body, id, images)
-        return res.json(updatedHero)
+        try {
+            let images = req.files?.images
+            let {id} = req.params
+            const updatedHero = (await SuperheroService.update(req.body, id, images))
+            return res.json(updatedHero)
+        } catch (e) {
+            throw e
+        }
 
     }
 
 
     async delete(req, res) {
-        const {id} = req.params
-        const deletedHero = SuperheroService.delete(id)
-        return res.json(deletedHero);
+        try {
+
+            const {id} = req.params
+            const deletedHero = await SuperheroService.delete(id)
+            return res.json(deletedHero);
+        } catch (e) {
+            throw e
+        }
     }
 
 

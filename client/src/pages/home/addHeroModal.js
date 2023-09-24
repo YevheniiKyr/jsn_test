@@ -119,17 +119,20 @@ const AddHeroModal = ({show, onHide}) => {
                     <Button variant="outline-success" onClick={addHero}>Додати</Button>
                 </Modal.Footer>
 
-                {/*<ErrorModal*/}
-                {/*    error={'Hero already exists. Create somebody else'}*/}
-                {/*    onHide={() => setErrorVisible(false)}*/}
-                {/*    show={errorVisible}*/}
-                {/*/>*/}
+                <ErrorModal
+                    error={'Hero already exists. Create somebody else'}
+                    onHide={() => setErrorVisible(false)}
+                    onHideOuterModal = {onHide}
+                    show={errorVisible}
+                />
 
-                {/*<SuccessModal*/}
-                {/*    heroId={heroId}*/}
-                {/*    message={'Hero has been successfully created.'}*/}
-                {/*    onHide={() => setSuccessVisible(false)}*/}
-                {/*    show={successVisible}/>*/}
+                <SuccessModal
+                    heroId={heroId}
+                    message={'Hero has been successfully created.'}
+                    onHide={() => setSuccessVisible(false)}
+                    onHideOuterModal = {onHide}
+
+                    show={successVisible}/>
 
             </Modal>
 

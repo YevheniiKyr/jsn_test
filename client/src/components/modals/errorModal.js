@@ -16,7 +16,9 @@ const ErrorModal = ({show, onHide, error}) => {
             </Modal.Body>
             <Modal.Footer>
                 <Container className={'d-flex justify-content-center'}>
-                    <Button style={{marginRight: '3rem'}} variant="outline-danger" onClick={onHide}>Закрити</Button>
+                    <Button style={{marginRight: '3rem'}} variant="outline-danger" onClick={
+                        onHide
+                    }>Закрити</Button>
                 </Container>
             </Modal.Footer>
         </Modal>

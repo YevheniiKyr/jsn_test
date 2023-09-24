@@ -23,11 +23,9 @@ errorHandler = (error, req, res, next) => {
             error: error.message
         });
     }
-    console.log('dont know 500 err')
 
     return res.status(500).json({error: error.message})
-    // Call next(error) to pass the error to the next middleware (e.g., the default error handler)
-    // next(error);
+
 
 }
 

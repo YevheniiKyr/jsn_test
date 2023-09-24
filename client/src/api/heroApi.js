@@ -1,7 +1,6 @@
 import {$host} from "./index";
 
 export const createHero = async (hero) => {
-    console.log('create hero client')
     const {data} = await $host.post('superhero/',
         hero
     )
@@ -9,7 +8,6 @@ export const createHero = async (hero) => {
 }
 
 export const updateHero = async (id, hero) => {
-    console.log('update hero client')
     const {data} = await $host.put(`superhero/${id}`,
         hero
     )

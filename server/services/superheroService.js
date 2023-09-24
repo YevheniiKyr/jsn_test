@@ -22,8 +22,9 @@ class SuperheroService {
         return fileNames
     }
 
-    async create (superhero, images) {
+    async create(superhero, images) {
 
+        console.log('create now')
         let {nickname, real_name, origin_description, superpowers, catch_phrase} = superhero
         superpowers = JSON.parse(superpowers)
         let fileNames = this.saveFiles(images)
@@ -34,7 +35,8 @@ class SuperheroService {
             origin_description,
             superpowers,
             catch_phrase
-        }).catch(() => {
+        }).catch((error) => {
+            console.log(error)
             throw new CantCreateException('Cant create hero with this fields')
         })
         return hero
@@ -78,7 +80,7 @@ class SuperheroService {
             nickname, real_name, origin_description,
             superpowers, catch_phrase, old_file_names
         } = superhero
-
+        let fileNames = []
         const hero = await Superhero.findById(id);
 
         if (!hero) {
@@ -101,7 +103,9 @@ class SuperheroService {
                 this.deleteFile(filePath)
             })
         }
-        let fileNames = this.saveFiles(images)
+
+
+        if (images) fileNames = this.saveFiles(images)
         superpowers = JSON.parse(superpowers)
         old_file_names = old_file_names || [];
         let newHero = {
@@ -115,6 +119,7 @@ class SuperheroService {
         const updatedHero = await Superhero.findByIdAndUpdate(id, newHero, {new: true});
         return updatedHero
     }
+
 
     async delete(id) {
         if (!id) {
@@ -131,4 +136,5 @@ class SuperheroService {
 
 }
 
-module.exports = new SuperheroService()
+module
+    .exports = new SuperheroService()

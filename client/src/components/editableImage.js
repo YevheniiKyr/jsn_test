@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {Button, Col} from "react-bootstrap";
 
-const EditableImage = ({onDeleteClick, image, URL}) => {
+const EditableImage = ({onDeleteClick, image, url}) => {
 
     useEffect(()=>{
         console.log(image)
@@ -19,7 +19,7 @@ const EditableImage = ({onDeleteClick, image, URL}) => {
             }}
         >
             <img
-                src={ URL? URL : URL.createObjectURL(image)  }
+                src={ url? url : URL.createObjectURL(image)  }
                 style={{cursor: "pointer"}}
                 alt={'Preview '}
                 width={'100px'}

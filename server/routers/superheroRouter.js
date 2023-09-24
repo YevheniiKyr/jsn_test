@@ -5,8 +5,8 @@ const router = require('express').Router()
 
 router.get('/', tryCatch(superheroController.getAll))
 router.get('/:id', tryCatch(superheroController.getByID))
-router.put('/:id', tryCatch(ValidateHero(Schemas.hero.create)), tryCatch(superheroController.update))
+router.put('/:id', ValidateHero(Schemas.hero.update), tryCatch(superheroController.update))
 router.delete('/:id', tryCatch(superheroController.delete))
-router.post('/', tryCatch(superheroController.create))
+router.post('/', ValidateHero(Schemas.hero.create),tryCatch(superheroController.create))
 
 module.exports = router

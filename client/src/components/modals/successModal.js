@@ -6,8 +6,9 @@ import {SUPERHERO_ROUTE} from "../../utils/constRoutes";
 const SuccessModal = ({show, onHide, message, heroId, onHideOuterModal, updated}) => {
 
     const navigate = useNavigate()
-    const updateAndHide = () => {
+    const hideAll = () => {
         updated()
+        onHide()
         onHideOuterModal()
     }
     return (
@@ -21,7 +22,7 @@ const SuccessModal = ({show, onHide, message, heroId, onHideOuterModal, updated}
             </Modal.Body>
             <Modal.Footer>
                 <Container className={'d-flex justify-content-center'}>
-                    <Button style={{marginRight: '3rem'}} variant="outline-success" onClick={updateAndHide}>Ok</Button>
+                    <Button style={{marginRight: '3rem'}} variant="outline-success" onClick={hideAll}>Ok</Button>
                     {
                         heroId &&
                         (

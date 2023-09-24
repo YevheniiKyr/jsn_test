@@ -5,6 +5,7 @@ import ErrorModal from "../../components/modals/errorModal";
 import SuccessModal from "../../components/modals/successModal";
 import EditableImage from "../../components/editableImage";
 import ListWithAdd from "../../components/listWithAdd";
+import {logDOM} from "@testing-library/react";
 
 const EditHeroModal = ({show, onHide, hero, updated}) => {
 
@@ -59,6 +60,7 @@ const EditHeroModal = ({show, onHide, hero, updated}) => {
 
     const editHero = () => {
         const heroData = new FormData();
+        console.log('NAME', name)
         heroData.append('nickname', name)
         heroData.append('real_name', realName)
         heroData.append('origin_description', originDesc)
@@ -76,19 +78,12 @@ const EditHeroModal = ({show, onHide, hero, updated}) => {
         updateHero(hero._id, heroData).then(() => {
             setSuccessVisible(true)
         })
-            .catch(() => setErrorVisible(true))
+            .catch((error) => {
+                console.log(error)
+                setErrorVisible(true)
+            })
             .finally(() => {
-                // onHide()
-                setNewFiles([])
-                setNewPower('')
-                setName('')
-                setSuperpowers([])
-                setOpenedImage('')
-                setCatchPhrase('')
-                setOriginDesc('')
-                setRealName('')
-                setFileNames([])
-                updated()
+
             })
     }
 
@@ -150,7 +145,7 @@ const EditHeroModal = ({show, onHide, hero, updated}) => {
                                 key={file}
                                 onDeleteClick={() => removeOldFile(file)}
                                 image={file}
-                                URL={process.env.REACT_APP_API_URL + file}
+                                url={process.env.REACT_APP_API_URL + file}
                             />
                         )
                         }
@@ -195,20 +190,23 @@ const EditHeroModal = ({show, onHide, hero, updated}) => {
                 <Button variant="outline-success" onClick={editHero}>Save</Button>
             </Modal.Footer>
 
-            {/*<ErrorModal*/}
-            {/*    error={'Cant update hero with this fields'}*/}
-            {/*    onHide={() => setErrorVisible(false)}*/}
-            {/*    onHideOuterModal={onHide}*/}
-            {/*    updated={updated}*/}
-            {/*    show={errorVisible}*/}
-            {/*/>*/}
+            <ErrorModal
+                error={'Cant update hero with this fields'}
+                onHide={() => {
+                    setErrorVisible(false)
+                }}
+                onHideOuterModal={onHide}
+                show={errorVisible}
+            />
 
-            {/*<SuccessModal*/}
-            {/*    message={'Hero has been successfully updated. '}*/}
-            {/*    onHide={() => setSuccessVisible(false)}*/}
-            {/*    onHideOuterModal={onHide}*/}
-            {/*    updated={updated}*/}
-            {/*    show={successVisible}/>*/}
+            <SuccessModal
+                message={'Hero has been successfully updated. '}
+                onHide={() => {
+                    setSuccessVisible(false)
+                }}
+                updated = {updated}
+                onHideOuterModal={onHide}
+                show={successVisible}/>
         </Modal>
 
     );

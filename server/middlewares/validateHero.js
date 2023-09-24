@@ -4,26 +4,22 @@ const {debugLog} = require("express-fileupload/lib/utilities");
 
 const ValidateHero = (schema) => {
     return async (req, res, next) => {
-        console.log('start validate hero')
         try {
             const bodyValidationResult = await schema.validateAsync(req.body);
             if (bodyValidationResult.error) {
                 throw new ValidationException(bodyValidationResult.error.details);
             }
-
-            // Validate req.files.images using the upload schema
-            const imagesValidationResult = await Schemas.files.upload.validateAsync(req.files.images);
-            if (imagesValidationResult.error) {
-                throw new ValidationException(imagesValidationResult.error.details);
+            if (schema === Schemas.hero.create) {
+                const imagesValidationResult = await Schemas.files.create.validateAsync(req.files);
+                if (imagesValidationResult.error) {
+                    throw new ValidationException(imagesValidationResult.error.details);
+                }
             }
+            next()
         } catch (error) {
-            throw new ValidationException('Validation error' + error);
+            console.log('ERROR', error)
+            next(new ValidationException(error))
         }
-        console.log("Successfully validated hero");
-        next();
-
-        console.log("we successfully validated hero")
-
     };
 };
 
@@ -33,6 +29,7 @@ function validateJSONStringArray(value) {
         if (Array.isArray(parsedArray)) {
             return value;
         }
+
     } catch (error) {
         throw new ValidationException("Invalid JSON array string in field superpowers");
     }
@@ -45,28 +42,23 @@ const Schemas = {
             nickname: Joi.string().required().min(1),
             real_name: Joi.string().required().min(1),
             origin_description: Joi.string().required().min(1),
-            superpowers: Joi.any(),
+            superpowers: Joi.any().custom(validateJSONStringArray).required(),
             catch_phrase: Joi.string().required().min(1),
-            //errorFiles
-            // images: Joi.array()
-            //     .items(Joi.string().required().length(36)).required()
-            // images: Joi.array().items(Joi.any()).required()
         }),
+        update: Joi.object({
+            nickname: Joi.string().required().min(1),
+            real_name: Joi.string().required().min(1),
+            origin_description: Joi.string().required().min(1),
+            superpowers: Joi.any().custom(validateJSONStringArray),
+            catch_phrase: Joi.string().required().min(1),
+            old_file_names: Joi.any()
+        })
     },
     files: {
-        upload: Joi.any()
-        // upload: Joi.array().items(
-        //     Joi.any()
+        create: Joi.object({
+            images: Joi.any().required(),
+        }).unknown(true),
 
-        //     Joi.object({
-        //     fieldname: Joi.string().valid('images').required(),
-        //     originalname: Joi.string().required(),
-        //     encoding: Joi.string().required(),
-        //     mimetype: Joi.string().required(),
-        //     buffer: Joi.binary().required(),
-        // })
-
-        // )
     }
 };
 
