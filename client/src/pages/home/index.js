@@ -9,6 +9,7 @@ const Index = () => {
 
     let [heroes, setHeroes] = useState([])
     let [loading, setLoading] = useState(true)
+    let [error, setError] = useState()
 
     let [limit, setLimit] = useState(5)
     let [page, setPage] = useState(1)
@@ -24,7 +25,7 @@ const Index = () => {
     }, [limit, page])
 
     if (loading) return <Spinner className={styles.spinner}/>
-
+    if (error) return <div className={styles.errorMessage}> Service is unavailable now. We are fixing it </div>
     if (heroes) {
         return (
             <Container className={styles.theme}>

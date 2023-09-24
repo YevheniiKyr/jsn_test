@@ -20,16 +20,16 @@ class SuperheroController {
         let fileNames = []
 
         superpowers = JSON.parse(superpowers)
-        // if (!Array.isArray(images)) {
-        //     let image = images
-        //     images = []
-        //     images.push(image)
-        // }
+        if (!Array.isArray(images)) {
+            let image = images
+            images = []
+            images.push(image)
+        }
 
         images.map(image => {
-                let fileName = uuid.v4() + '.jpg'
-                image.mv(path.resolve(__dirname, '..', 'static', fileName))
-                fileNames.push(fileName)
+            let fileName = uuid.v4() + '.jpg'
+            image.mv(path.resolve(__dirname, '..', 'static', fileName))
+            fileNames.push(fileName)
         })
 
         const hero = await Superhero.create({
@@ -54,8 +54,10 @@ class SuperheroController {
         limit = limit || 5
 
         const offset = page * limit - limit
-        const count = await Superhero.count();
         const heroes = await Superhero.find().skip(offset).limit(limit)
+        console.log('heroes')
+        const count = await Superhero.count();
+        // const heroes = await Superhero.find().skip(offset).limit(limit)
 
         res.json({heroes, count})
     }
@@ -80,6 +82,7 @@ class SuperheroController {
             nickname, real_name, origin_description,
             superpowers, catch_phrase, old_file_names
         } = req.body
+
         console.log('body')
 
         let images = req.files?.images
@@ -95,9 +98,19 @@ class SuperheroController {
         let fileNames = []
         console.log('we have images')
 
-        if(images) {
+
+        if (old_file_names) {
+            if (!Array.isArray(old_file_names)) {
+                let fileName = old_file_names
+                old_file_names = []
+                old_file_names.push(fileName)
+            }
+            console.log( 'images', hero.images)
             hero.images.map(image => {
-                if (!old_file_names.has(image)) {
+                console.log('map images')
+
+                if (!old_file_names.find(name => name === image)) {
+                    console.log('so didnt find')
                     const filePath = path.join(__dirname, '..', 'static', image);
                     fs.unlink(filePath, (err) => {
                         if (err) {
@@ -109,19 +122,43 @@ class SuperheroController {
                 }
             })
             console.log('we deleted old  images')
-
+        } else {
+            hero.images.map(image => {
+                const filePath = path.join(__dirname, '..', 'static', image);
+                fs.unlink(filePath, (err) => {
+                    if (err) {
+                        console.error(`Error deleting file ${image}: ${err}`);
+                    } else {
+                        console.log(`File ${image} has been deleted.`);
+                    }
+                });
+            })
+        }
+        if (images) {
+            if (!Array.isArray(images)) {
+                let image = images
+                images = []
+                images.push(image)
+            }
             images.map(image => {
                 let fileName = uuid.v4() + '.jpg'
                 image.mv(path.resolve(__dirname, '..', 'static', fileName))
                 fileNames.push(fileName)
             })
             console.log('added new files to static')
-
         }
 
         superpowers = JSON.parse(superpowers)
-
-        let newHero = {real_name, nickname, origin_description, superpowers, catch_phrase, images: [...old_file_names, ...fileNames]}
+        old_file_names = old_file_names || [];
+        fileNames = fileNames || []
+        let newHero = {
+            real_name,
+            nickname,
+            origin_description,
+            superpowers,
+            catch_phrase,
+            images: [...old_file_names, ...fileNames]
+        }
 
         const updatedHero = await Superhero.findByIdAndUpdate(id, newHero, {new: true});
         return res.json(updatedHero)

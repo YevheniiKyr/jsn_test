@@ -13,7 +13,7 @@ const Header = () => {
     for (let i = 0; i < repeatImageTimes; i++) {
         images.push(
             <img
-                key={i} // Don't forget to provide a unique key when rendering an array of elements
+                key={i}
                 src={logo}
                 alt={'logo'}
                 className={styles.logo}

@@ -3,6 +3,7 @@ import {Button, Col, Dropdown, Form, Modal, Row} from "react-bootstrap";
 import {createHero} from "../../api/heroApi";
 import ErrorModal from "../../components/modals/errorModal";
 import SuccessModal from "../../components/modals/successModal";
+import ListWithAdd from "../../components/listWithAdd";
 
 const AddHeroModal = ({show, onHide}) => {
 
@@ -91,43 +92,16 @@ const AddHeroModal = ({show, onHide}) => {
                             className="mt-2"
                             placeholder="Input catch phrase"
                         />
-                        <div style={{fontSize: '1.25rem', marginTop: '0.75rem'}}> Superpowers</div>
-                        {
-                            superpowers.map((superpower, idx) =>
-                                <Row key={idx} style={{marginTop: '0.25rem'}}>
-                                    <Col md={8} lg={8}>
-                                        <Form.Control
-                                            value={superpower}
-                                            onChange={(e) => {
-                                                changePower(idx, e.target.value)
-                                            }
-                                            }>
-                                        </Form.Control>
-                                    </Col>
-                                    <Col md={4} lg={4}>
-                                        <Button
-                                            variant={'outline-danger'}
-                                            onClick={() => deletePower(idx)}> delete power </Button>
-                                    </Col>
-                                </Row>
-                            )
-                        }
-                        <Row style={{marginTop: '0.25rem'}}>
-                            <Col md={8} lg={8}>
-                                <Form.Control
-                                    value={newPower}
-                                    onChange={(e) => setNewPower(e.target.value)
-                                    }
-                                >
-                                </Form.Control>
-                            </Col>
-                            <Col md={4} lg={4}>
-                                <Button
-                                    onClick={() => addPower()}
-                                    variant={'outline-success'}
-                                > add power </Button>
-                            </Col>
-                        </Row>
+
+                        <ListWithAdd
+                            listName={'Superpowers'}
+                            list={superpowers}
+                            addItem={addPower}
+                            deleteItem={deletePower}
+                            changeItem={changePower}
+                            setNewItem={setNewPower}
+                            newItem={newPower}
+                        />
 
                         <Form.Control
                             placeholder='Choose file'
@@ -138,7 +112,6 @@ const AddHeroModal = ({show, onHide}) => {
                         />
                         <hr/>
 
-
                     </Form>
                 </Modal.Body>
                 <Modal.Footer>
@@ -146,17 +119,17 @@ const AddHeroModal = ({show, onHide}) => {
                     <Button variant="outline-success" onClick={addHero}>Додати</Button>
                 </Modal.Footer>
 
-                <ErrorModal
-                    error={'Hero already exists. Create somebody else'}
-                    onHide={() => setErrorVisible(false)}
-                    show={errorVisible}
-                />
+                {/*<ErrorModal*/}
+                {/*    error={'Hero already exists. Create somebody else'}*/}
+                {/*    onHide={() => setErrorVisible(false)}*/}
+                {/*    show={errorVisible}*/}
+                {/*/>*/}
 
-                <SuccessModal
-                    heroId={heroId}
-                    message={'Hero has been successfully created. '}
-                    onHide={() => setSuccessVisible(false)}
-                    show={successVisible}/>
+                {/*<SuccessModal*/}
+                {/*    heroId={heroId}*/}
+                {/*    message={'Hero has been successfully created.'}*/}
+                {/*    onHide={() => setSuccessVisible(false)}*/}
+                {/*    show={successVisible}/>*/}
 
             </Modal>
 

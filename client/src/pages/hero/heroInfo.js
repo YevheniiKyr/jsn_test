@@ -6,7 +6,6 @@ import EditHeroModal from "./editHeroModal";
 const HeroInfo = ({hero}) => {
 
 
-    const [editVisible, setEditVisible] = useState(false)
     return (
         <Card style={{padding: '1rem', background: 'rgb(138,131,192)', width: '50%', margin: "auto"}}>
             <div className={styles.title}>
@@ -26,8 +25,8 @@ const HeroInfo = ({hero}) => {
                 <div className={styles.field_value}>
                     {
                         hero.superpowers.map(
-                            power =>
-                                <div>
+                            (power, idx) =>
+                                <div key={idx}>
                                     {power}
                                 </div>
                         )
@@ -38,15 +37,7 @@ const HeroInfo = ({hero}) => {
                 <div className={styles.field_name}>Catch phrase:</div>
                 <div className={styles.field_value}>{hero.catch_phrase}</div>
             </div>
-            <div style={{display: "flex", justifyContent: "center", marginTop: '1rem'}}>
-                <button
-                    className={styles.edit_button}
-                    onClick={() => setEditVisible(true)}
-                >edit
-                </button>
-                <button className={styles.delete_button}>delete</button>
-            </div>
-            <EditHeroModal hero={hero} show={editVisible} onHide={() => setEditVisible(false)}></EditHeroModal>
+
         </Card>
     );
 };

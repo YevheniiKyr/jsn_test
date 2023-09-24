@@ -3,9 +3,13 @@ import {Button, Container, Modal} from "react-bootstrap";
 import {useNavigate} from "react-router-dom";
 import {SUPERHERO_ROUTE} from "../../utils/constRoutes";
 
-const SuccessModal = ({show, onHide, message, heroId}) => {
+const SuccessModal = ({show, onHide, message, heroId, onHideOuterModal, updated}) => {
 
     const navigate = useNavigate()
+    const updateAndHide = () => {
+        updated()
+        onHideOuterModal()
+    }
     return (
         <Modal
             show={show}
@@ -17,7 +21,7 @@ const SuccessModal = ({show, onHide, message, heroId}) => {
             </Modal.Body>
             <Modal.Footer>
                 <Container className={'d-flex justify-content-center'}>
-                    <Button style={{marginRight: '3rem'}} variant="outline-success" onClick={onHide}>Ok</Button>
+                    <Button style={{marginRight: '3rem'}} variant="outline-success" onClick={updateAndHide}>Ok</Button>
                     {
                         heroId &&
                         (
@@ -25,9 +29,9 @@ const SuccessModal = ({show, onHide, message, heroId}) => {
                                 () => {
                                     navigate(SUPERHERO_ROUTE + '/' + heroId)
                                     onHide()
+                                    onHideOuterModal()
                                 }
                             }>
-                                // onHide
                                 Hero page</Button>
                         )
                     }
