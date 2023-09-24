@@ -136,5 +136,4 @@ class SuperheroService {
 
 }
 
-module
-    .exports = new SuperheroService()
+module.exports = new SuperheroService()

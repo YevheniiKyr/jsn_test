@@ -24,7 +24,7 @@ app.use(fileUpload({}))
 app.use(express.static(path.resolve(__dirname, 'static')))
 app.use(router)
 
-// app.use(errorHandler)
+app.use(errorHandler)
 
 
 app.listen(PORT, ()=>console.log("server is started on Port", PORT))
