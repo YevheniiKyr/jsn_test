@@ -1,4 +1,4 @@
 /server/node_modules/
 /server/test
 /server/.env
-.idea
+/.idea
