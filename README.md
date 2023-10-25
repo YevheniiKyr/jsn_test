@@ -44,6 +44,18 @@ Request body is validated with Joi library
 # What did I learn 
 - exception handling in Node js
 - writing tests with supertest library
-- 
+
+#Program demonstration 
+Main page
 ![image](https://github.com/YevheniiKyr/jsn_test/assets/84139553/26a83ef3-77e7-4383-816a-15a18aa1327e)
+Create hero modal
+![image](https://github.com/YevheniiKyr/jsn_test/assets/84139553/d1006b7c-6d49-42fa-a65a-112a28bb69c9)
+Hero page
+![image](https://github.com/YevheniiKyr/jsn_test/assets/84139553/44aa9601-66ee-4f93-a927-d51a89d30326)
+Edit hero modal 
+![image](https://github.com/YevheniiKyr/jsn_test/assets/84139553/3d95f2a9-e82b-4524-a791-bb0ee2747ea3)
+
+
+
+
 
