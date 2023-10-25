@@ -35,10 +35,11 @@ with pagination, showing 5 items at once
 - See the details of one particular superhero with all it’s information and images
 
 # Technology stack
-Server: Express js,
-Client: React js 
+- Server: Express js.
+Api is covered by tests with supertest library.
+Request body is validated with Joi library
+- Client: React js 
 
-Api is covered by tests.
 
 # What did I learn 
 - exception handling in Node js
