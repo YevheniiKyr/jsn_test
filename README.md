@@ -44,3 +44,6 @@ Request body is validated with Joi library
 # What did I learn 
 - exception handling in Node js
 - writing tests with supertest library
+- 
+![image](https://github.com/YevheniiKyr/jsn_test/assets/84139553/26a83ef3-77e7-4383-816a-15a18aa1327e)
+
