@@ -1,0 +1,175 @@
+@use '../../styles/variables' as vars;
+
+.spinner {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    width: 20vw;
+    height: 15vh;
+}
+
+.image {
+    position: absolute;
+    top: 3.5rem;
+    right: 1rem;
+    height: 60vh;
+    padding: 1rem;
+    align-self: center;
+    margin-top: 1rem;
+}
+
+.hero_info_wrapper {
+    padding: 1rem;
+    width: 100%;
+    margin: auto;
+    background-color: vars.$pink;
+}
+
+
+.card {
+    border-radius: 0 !important;
+    border: none !important;
+    width: 45vw;
+    margin-bottom: 3vh;
+    margin-top: 3vh;
+    background-color: vars.$pink;
+    box-shadow: 0 4px 20px rgba(0, 140, 255, 0.2), 0 6px 30px rgba(0, 140, 255, 0.15);
+}
+
+.main_wrapper {
+    display: flex;
+    justify-content: center;
+    background: vars.$smoke-violette;
+}
+
+.title {
+    font-size: 2rem;
+    display: flex;
+    justify-content: center;
+    color: vars.$darkest-violette;
+    font-weight: 600;
+}
+
+.field {
+    display: flex;
+    color: vars.$darkest-violette;
+}
+
+.field_name {
+    font-size: 1.2rem;
+    font-weight: 600;
+    width: 20%;
+    flex-shrink: 0;
+    justify-content: center
+}
+
+.field_value {
+    font-size: 1.2rem;
+    margin-left: 0.5rem;
+}
+
+.carousel {
+    background-color: vars.$dark-pink;
+    height: 50vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin: auto;
+}
+
+.carousel_image {
+    width: 30vw;
+    /*display: flex;*/
+    /*padding: 2rem;*/
+}
+
+.actions_section {
+    display: flex;
+    justify-content: center;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    background: vars.$dark-pink;
+}
+
+.errorMessage {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    font-size: 30rem;
+}
+
+.edit_button {
+    color: #f3eee5;
+    background-color: vars.$blue-violette;
+    width: 4.5rem;
+    height: 3rem;
+    border: none;
+    margin-right: 1rem;
+}
+
+.delete_button {
+    color: #f3eee5;
+    background-color: vars.$red-violette;
+    border: none;
+    width: 6rem;
+    height: 3rem;
+}
+
+.carousel_image_container {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center
+}
+
+@media (max-width: 1200px) {
+    .card {
+        width: 55vw;
+    }
+
+    .field_name {
+        width: 30%;
+    }
+}
+
+@media (max-width: 992px) {
+    .card {
+        width: 65vw;
+    }
+
+    .field_name {
+        width: 30%;
+    }
+
+    .carousel_image {
+        width: 40vw;
+    }
+}
+
+@media (max-width: 768px) {
+    .card {
+        width: 75vw;
+    }
+
+    .field_name {
+        width: 35%;
+    }
+
+    .carousel_image {
+        width: 50vw;
+    }
+}
+
+@media (max-width: 576px) {
+    .card {
+        width: 85vw;
+    }
+
+    .field_name {
+        width: 40%;
+    }
+
+    .carousel_image {
+        width: 60vw;
+    }
+}

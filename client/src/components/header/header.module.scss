@@ -1,0 +1,72 @@
+@use '../../styles/variables' as vars;
+
+.header {
+    width: 100%;
+    background-color: vars.$smoke-blue;
+    padding: 0;
+    overflow: hidden;
+}
+
+.title {
+    text-align: center;
+    font-size: 2rem;
+    color: vars.$dark-violette;
+    padding-top: .5rem
+}
+
+.images_wrapper {
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+.logo {
+    margin: 1rem 0;
+    width: 7rem;
+    cursor: pointer;
+}
+
+.add_hero_button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: .7rem;
+    border-radius: 5px;
+    color: white;
+    background: vars.$violette;
+    border: none;
+    transition: background 0.3s ease, scale .3s ease;
+}
+
+.button_wrapper {
+    display: flex;
+    justify-content: end;
+}
+
+.add_hero_section {
+    position: absolute;
+    top: 3.5rem;
+    right: 1rem;
+}
+
+.add_hero_button:hover {
+    scale: 1.1;
+    background: vars.$pink;
+}
+
+@media (max-width: 576px) {
+    .add_hero_button {
+        padding: .5rem;
+        font-size: .8rem;
+    }
+    .logo {
+        margin: .5rem 0;
+        width: 4rem;
+    }
+    .add_hero_section {
+        position: absolute;
+        top: 1.5rem;
+        right: .5rem;
+    }
+}

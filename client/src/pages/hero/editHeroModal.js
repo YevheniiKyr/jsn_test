@@ -1,11 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Col, Form, Modal, Row} from "react-bootstrap";
+import {Button, Form, Modal, Row} from "react-bootstrap";
 import {updateHero} from "../../api/heroApi";
 import ErrorModal from "../../components/modals/errorModal";
 import SuccessModal from "../../components/modals/successModal";
 import EditableImage from "../../components/editableImage";
 import ListWithAdd from "../../components/listWithAdd";
-import {logDOM} from "@testing-library/react";
 
 const EditHeroModal = ({show, onHide, hero, updated}) => {
 
@@ -22,7 +21,6 @@ const EditHeroModal = ({show, onHide, hero, updated}) => {
     const [openedImage, setOpenedImage] = useState('')
 
     useEffect(() => {
-        console.log('RERENDER EditHeroModal')
         setNewFiles([])
         setNewPower('')
         setName(hero.nickname)
@@ -60,7 +58,6 @@ const EditHeroModal = ({show, onHide, hero, updated}) => {
 
     const editHero = () => {
         const heroData = new FormData();
-        console.log('NAME', name)
         heroData.append('nickname', name)
         heroData.append('real_name', realName)
         heroData.append('origin_description', originDesc)
@@ -78,12 +75,10 @@ const EditHeroModal = ({show, onHide, hero, updated}) => {
         updateHero(hero._id, heroData).then(() => {
             setSuccessVisible(true)
         })
-            .catch((error) => {
-                console.log(error)
+            .catch(() => {
                 setErrorVisible(true)
             })
             .finally(() => {
-
             })
     }
 
@@ -123,8 +118,6 @@ const EditHeroModal = ({show, onHide, hero, updated}) => {
                         className="mt-2"
                         placeholder="Input catch phrase"
                     />
-
-                    {/*superpowers*/}
                     <ListWithAdd
                         listName={'Superpowers'}
                         list={superpowers}
@@ -134,25 +127,16 @@ const EditHeroModal = ({show, onHide, hero, updated}) => {
                         setNewItem={setNewPower}
                         newItem={newPower}
                     />
-
-                    {/*old images*/}
-                    <Row style={{marginTop: '1rem'}}
-                    >
+                    <Row style={{marginTop: '1rem'}}>
                         <h5 style={{marginTop: '0.75rem'}}>Images</h5>
                         {fileNames.map(file =>
-
                             <EditableImage
                                 key={file}
                                 onDeleteClick={() => removeOldFile(file)}
                                 image={file}
                                 url={process.env.REACT_APP_API_URL + file}
-                            />
-                        )
-                        }
+                            />)}
                     </Row>
-
-                    {/*new images*/}
-
                     <Row style={{marginTop: '1rem'}}>
                         <h5 style={{marginTop: '0.75rem'}}>Images you want to add</h5>
                         {newFiles.length > 0
@@ -165,16 +149,13 @@ const EditHeroModal = ({show, onHide, hero, updated}) => {
                             )
                         }
                     </Row>
-
-                    {/*clicked image*/}
                     <img
                         src={process.env.REACT_APP_API_URL + openedImage}
                         alt={openedImage}
                         width={'400px'}
                         height={'400px'}
                         style={{display: openedImage ? "block" : 'none', marginTop: '1rem'}}
-                    ></img>
-
+                    />
                     <Form.Control
                         placeholder='Choose file'
                         className="mt-3"
@@ -182,7 +163,6 @@ const EditHeroModal = ({show, onHide, hero, updated}) => {
                         multiple
                         onChange={selectFile}
                     />
-
                 </Form>
             </Modal.Body>
             <Modal.Footer>
@@ -204,7 +184,7 @@ const EditHeroModal = ({show, onHide, hero, updated}) => {
                 onHide={() => {
                     setSuccessVisible(false)
                 }}
-                updated = {updated}
+                updated={updated}
                 onHideOuterModal={onHide}
                 show={successVisible}/>
         </Modal>

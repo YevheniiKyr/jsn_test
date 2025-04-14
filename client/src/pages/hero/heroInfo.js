@@ -1,17 +1,13 @@
-import React, {useState} from 'react';
-import {Card} from "react-bootstrap";
-import styles from "./styles.module.css";
-import EditHeroModal from "./editHeroModal";
+import React from 'react';
+import styles from "./styles.module.scss";
 
 const HeroInfo = ({hero}) => {
 
-
     return (
-        <Card style={{padding: '1rem', background: 'rgb(138,131,192)', width: '50%', margin: "auto"}}>
+        <div className={styles.hero_info_wrapper}>
             <div className={styles.title}>
                 {hero.nickname}
             </div>
-
             <div className={styles.field}>
                 <div className={styles.field_name}>Real name:</div>
                 <div className={styles.field_value}>{hero.real_name}</div>
@@ -37,8 +33,7 @@ const HeroInfo = ({hero}) => {
                 <div className={styles.field_name}>Catch phrase:</div>
                 <div className={styles.field_value}>{hero.catch_phrase}</div>
             </div>
-
-        </Card>
+        </div>
     );
 };
 

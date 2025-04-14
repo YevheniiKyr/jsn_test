@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Col, Dropdown, Form, Modal, Row} from "react-bootstrap";
+import {Button, Form, Modal} from "react-bootstrap";
 import {createHero} from "../../api/heroApi";
 import ErrorModal from "../../components/modals/errorModal";
 import SuccessModal from "../../components/modals/successModal";
@@ -39,11 +39,10 @@ const AddHeroModal = ({show, onHide}) => {
         }
         const addHero = () => {
             const heroData = new FormData();
-            console.log('FILES', files)
+
             heroData.append('nickname', name)
             heroData.append('real_name', realName)
             heroData.append('origin_description', originDesc)
-            // heroData.append('images', files[0])
             heroData.append('superpowers', JSON.stringify(superpowers))
             heroData.append('catch_phrase', catch_phrase)
 
@@ -131,9 +130,7 @@ const AddHeroModal = ({show, onHide}) => {
                     message={'Hero has been successfully created.'}
                     onHide={() => setSuccessVisible(false)}
                     onHideOuterModal = {onHide}
-
                     show={successVisible}/>
-
             </Modal>
 
         );

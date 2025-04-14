@@ -1,70 +1,72 @@
-# Getting Started with Create React App
+# How to run app
+To follow this instruction you need use npm.
+If you use other packet manager, you need find out how to run client-server projects by yourself
+1) run server
+    - go to the server directory
+    - write 'npm install' to install all dependencies
+    - write 'npm run dev' to tun server
+2) run client
+    - go to the client directory
+    - write 'npm install' to install all dependencies
+    - write 'npm run start' to run react app
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# What is app
 
-## Available Scripts
+# Objective
+This is web application that allows to
+do CRUD operations of the superhero model
+The model
+A Superhero consists of:
+- nickname: Superman
+- real_name: Clark Kent
+- origin_description: he was born Kal-El on the planet Krypton, before being rocketed to
+  Earth as an infant by his scientist father Jor-El, moments before Krypton's destruction...
+- superpowers: solar energy absorption and healing factor, solar flare and heat vision,
+  solar invulnerability, flight...
+- catch_phrase: “Look, up in the sky, it's a bird, it's a plane, it's Superman!”
+- Images: a set of images of the superhero
 
-In the project directory, you can run:
+# Functional requirements
+- Create, edit and remove a superhero
+  ○ When creating / editing there is ability to assign and remove images from
+  a superhero
+- List all the superheros, seeing only one image for each and it’s nickname,
+  with pagination, showing 5 items at once
+- See the details of one particular superhero with all it’s information and images
 
-### `npm start`
+# Technology stack
+- Server: Express js.
+  Api is covered by tests with supertest library.
+  Request body is validated with Joi library
+- Client: React js
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+# What did I learn
+- exception handling in Node js
+- writing tests with supertest library
 
-### `npm test`
+# Program demonstration
+## Main page
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+![image](https://github.com/user-attachments/assets/eeded29c-f65b-434f-ac75-2fd29c720fed)
 
-### `npm run build`
+![image](https://github.com/user-attachments/assets/073f08a3-0c12-478a-93b0-0124b6f4198d)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Create hero modal
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+![image](https://github.com/YevheniiKyr/jsn_test/assets/84139553/d1006b7c-6d49-42fa-a65a-112a28bb69c9)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Hero page
 
-### `npm run eject`
+![image](https://github.com/user-attachments/assets/4b1d6cee-b54a-4ff2-8e3e-69f3525619f1)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+![image](https://github.com/user-attachments/assets/6dec719d-cdc3-4cc8-a742-4b7d3827cb90)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Edit hero modal
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+![image](https://github.com/YevheniiKyr/jsn_test/assets/84139553/3d95f2a9-e82b-4524-a791-bb0ee2747ea3)
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

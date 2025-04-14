@@ -7,10 +7,11 @@ const SuccessModal = ({show, onHide, message, heroId, onHideOuterModal, updated}
 
     const navigate = useNavigate()
     const hideAll = () => {
-        updated()
+        if(updated) updated()
         onHide()
         onHideOuterModal()
     }
+
     return (
         <Modal
             show={show}

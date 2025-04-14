@@ -1,22 +1,23 @@
 import React from 'react';
-import {Button, Carousel, Container} from "react-bootstrap";
-import styles from "./styles.module.css";
+import {Carousel, Container} from "react-bootstrap";
+import styles from "./styles.module.scss";
 
 const ImagesList = ({images}) => {
-    return (
 
+    return (
         <Carousel className={styles.carousel}>
             {images.map((image, idx) =>
-                <Carousel.Item style={{cursor: "pointer"}} key={image}>
-                    <img
-                        key={image}
-                        className={styles.carousel_image}
-                        src={process.env.REACT_APP_API_URL + image}
-                        alt={`${idx}'s slide`}
-                    />
-                </Carousel.Item>)
-            }
-
+                (<Carousel.Item
+                    key={image}>
+                    <Container fluid className={styles.carousel_image_container}>
+                        <img
+                            key={image}
+                            className={styles.carousel_image}
+                            src={process.env.REACT_APP_API_URL + image}
+                            alt={`${idx}'s slide`}
+                        />
+                    </Container>
+                </Carousel.Item>))}
         </Carousel>
 
     )

@@ -10,7 +10,6 @@ const ErrorModal = ({show, onHide, error}) => {
             onHide={onHide}
             centered
         >
-
             <Modal.Body style={{textAlign: 'center'}}>
                 {error}
             </Modal.Body>

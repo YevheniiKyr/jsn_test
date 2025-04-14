@@ -1,0 +1,64 @@
+@use '../../styles/variables' as vars;
+
+.spinner {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.image {
+  height: 30vh;
+  padding: 2rem;
+}
+
+.card {
+  margin-top: 1rem;
+  cursor: pointer;
+  width: 20rem;
+  color: vars.$darkest-violette;
+  background: vars.$pink !important;
+  border: none !important;
+  box-shadow: 0 4px 20px rgba(0, 140, 255, 0.2), 0 6px 30px rgba(0, 140, 255, 0.15);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 24px rgba(0, 140, 255, 0.35), 0 10px 40px rgba(0, 140, 255, 0.2);
+  }
+
+  border-radius: 0 !important;
+}
+
+.hero_list {
+  margin-top: 2rem;
+}
+
+.add_hero {
+  margin-top: 2rem;
+}
+
+.logo {
+  height: 5rem;
+  width: 5rem;
+  cursor: pointer;
+}
+
+.page_wrapper {
+  background-color: vars.$smoke-violette;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.list_wrapper {
+  padding-top: 2rem;
+  min-height: 80vh;
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+  flex-grow: 0;
+  justify-content: center;
+  align-items: center;
+}
+

@@ -1,59 +1,57 @@
 const SuperheroService = require('../services/superheroService')
-const {tryCatch} = require("../utils/tryCatch");
 
 class SuperheroController {
 
-    async create(req, res) {
+    async create(req, res, next) {
         try {
             const hero = (await SuperheroService.create(req.body, req.files.images))
             return res.json(hero)
         } catch (e) {
-            throw e
+            next(e)
         }
     }
 
-    async getAll(req, res) {
+    async getAll(req, res, next) {
         try {
             let {limit, page} = req.query
             const response = (await SuperheroService.getAll(limit, page))
             res.json(response)
         } catch (e) {
-            throw e
+            next(e)
         }
     }
 
-    async getByID(req, res) {
+    async getByID(req, res, next) {
         try {
             let id = req.params.id
             const {limit, page} = req.body
             const hero = await (SuperheroService.getByID(id, limit, page))
             res.json(hero);
         } catch (e) {
-            throw e
+            next(e)
         }
     }
 
-    async update(req, res) {
+    async update(req, res, next) {
         try {
             let images = req.files?.images
             let {id} = req.params
             const updatedHero = (await SuperheroService.update(req.body, id, images))
             return res.json(updatedHero)
         } catch (e) {
-            throw e
+            next(e)
         }
 
     }
 
 
-    async delete(req, res) {
+    async delete(req, res, next) {
         try {
-
             const {id} = req.params
             const deletedHero = await SuperheroService.delete(id)
             return res.json(deletedHero);
         } catch (e) {
-            throw e
+            next(e)
         }
     }
 

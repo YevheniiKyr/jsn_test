@@ -47,14 +47,15 @@ class SuperheroService {
         limit = limit || 5
 
         const offset = page * limit - limit
+        console.log("start await heroes")
         const heroes = await Superhero.find().skip(offset).limit(limit)
         console.log('heroes')
         const count = await Superhero.count();
+        console.log(heroes, count)
         return ({heroes, count})
     }
 
     async getByID(id, limit, page) {
-
         const hero = await Superhero.findById(id);
         if (!hero) {
             throw new NotFoundException(`Superhero with id ${id} is not found`)

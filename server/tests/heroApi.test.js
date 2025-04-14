@@ -24,9 +24,9 @@ describe("Create one hero, then get it by ID, and delete", () => {
         images: fs.readFileSync(imageForCreateTest)
     }
 
-    afterAll(async () => {
-        await request(baseURL).delete(`/superhero/${createdHeroId}`)
-    })
+    // afterAll(async () => {
+    //     await request(baseURL).delete(`/superhero/${createdHeroId}`)
+    // })
 
     it("should successfully create item", async () => {
         const response = await request(baseURL)

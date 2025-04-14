@@ -1,23 +1,21 @@
 const ValidationException = require("../exceptions/ValidationException");
 const Joi = require("joi");
-const {debugLog} = require("express-fileupload/lib/utilities");
 
 const ValidateHero = (schema) => {
     return async (req, res, next) => {
         try {
             const bodyValidationResult = await schema.validateAsync(req.body);
             if (bodyValidationResult.error) {
-                throw new ValidationException(bodyValidationResult.error.details);
+                next(new ValidationException(bodyValidationResult.error.details));
             }
             if (schema === Schemas.hero.create) {
                 const imagesValidationResult = await Schemas.files.create.validateAsync(req.files);
                 if (imagesValidationResult.error) {
-                    throw new ValidationException(imagesValidationResult.error.details);
+                     next(new ValidationException(imagesValidationResult.error.details));
                 }
             }
             next()
         } catch (error) {
-            console.log('ERROR', error)
             next(new ValidationException(error))
         }
     };
@@ -29,11 +27,9 @@ function validateJSONStringArray(value) {
         if (Array.isArray(parsedArray)) {
             return value;
         }
-
     } catch (error) {
-        throw new ValidationException("Invalid JSON array string in field superpowers");
+        throw new ValidationException("Invalid JSON array string in field superpowers")
     }
-    throw new ValidationException("Invalid JSON array string in field superpowers");
 }
 
 const Schemas = {
