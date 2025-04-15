@@ -7,7 +7,6 @@ import ListWithAdd from "../../components/listWithAdd";
 
 const AddHeroModal = ({show, onHide}) => {
 
-        const [error, setError] = useState('')
         const [name, setName] = useState('')
         const [realName, setRealName] = useState('')
         const [originDesc, setOriginDesc] = useState('')

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import HeroList from "./heroList";
 import {getHeroes} from "../../api/heroApi";
-import {Col, Container, Spinner} from "react-bootstrap";
+import {Spinner} from "react-bootstrap";
 import Pages from "./pages";
 import styles from "./styles.module.scss"
 
@@ -22,9 +22,7 @@ const Index = () => {
             setCount(count)
             setLoading(false)
         })
-    }, [
-        // limit, page
-    ])
+    }, [])
 
     if (loading) return <Spinner className={styles.spinner}/>
     if (error) return <div className={styles.errorMessage}> Service is unavailable now. We are fixing it </div>
