@@ -4,7 +4,7 @@ class SuperheroController {
 
     async create(req, res, next) {
         try {
-            const hero = (await SuperheroService.create(req.body, req.files.images))
+            const hero = await SuperheroService.create(req.body, req.files.images)
             return res.json(hero)
         } catch (e) {
             next(e)
@@ -14,7 +14,7 @@ class SuperheroController {
     async getAll(req, res, next) {
         try {
             let {limit, page} = req.query
-            const response = (await SuperheroService.getAll(limit, page))
+            const response = await SuperheroService.getAll(limit, page)
             res.json(response)
         } catch (e) {
             next(e)
@@ -24,8 +24,7 @@ class SuperheroController {
     async getByID(req, res, next) {
         try {
             let id = req.params.id
-            const {limit, page} = req.body
-            const hero = await (SuperheroService.getByID(id, limit, page))
+            const hero = await SuperheroService.getByID(id)
             res.json(hero);
         } catch (e) {
             next(e)
@@ -36,14 +35,12 @@ class SuperheroController {
         try {
             let images = req.files?.images
             let {id} = req.params
-            const updatedHero = (await SuperheroService.update(req.body, id, images))
+            const updatedHero = await SuperheroService.update(req.body, id, images)
             return res.json(updatedHero)
         } catch (e) {
             next(e)
         }
-
     }
-
 
     async delete(req, res, next) {
         try {
@@ -54,7 +51,6 @@ class SuperheroController {
             next(e)
         }
     }
-
 
 }
 

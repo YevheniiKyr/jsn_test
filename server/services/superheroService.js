@@ -24,7 +24,6 @@ class SuperheroService {
 
     async create(superhero, images) {
 
-        console.log('create now')
         let {nickname, real_name, origin_description, superpowers, catch_phrase} = superhero
         superpowers = JSON.parse(superpowers)
         let fileNames = this.saveFiles(images)
@@ -35,8 +34,7 @@ class SuperheroService {
             origin_description,
             superpowers,
             catch_phrase
-        }).catch((error) => {
-            console.log(error)
+        }).catch(() => {
             throw new CantCreateException('Cant create hero with this fields')
         })
         return hero
@@ -47,15 +45,12 @@ class SuperheroService {
         limit = limit || 5
 
         const offset = page * limit - limit
-        console.log("start await heroes")
-        const heroes = await Superhero.find().skip(offset).limit(limit)
-        console.log('heroes')
+        const heroes = await Superhero.find({}).skip(offset).limit(limit)
         const count = await Superhero.count();
-        console.log(heroes, count)
         return ({heroes, count})
     }
 
-    async getByID(id, limit, page) {
+    async getByID(id) {
         const hero = await Superhero.findById(id);
         if (!hero) {
             throw new NotFoundException(`Superhero with id ${id} is not found`)

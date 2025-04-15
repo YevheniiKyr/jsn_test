@@ -6,7 +6,7 @@ const path = require("path");
 const cors = require("cors")
 const fileUpload = require('express-fileupload')
 const errorHandler = require("./middlewares/errorHandler")
-//wddw
+
 const DB_URL = process.env.DB_URL
 const PORT = process.env.PORT || 5000
 
