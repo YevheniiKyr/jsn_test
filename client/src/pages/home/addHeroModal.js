@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Button, Form, Modal} from "react-bootstrap";
 import {createHero} from "../../api/heroApi";
-import ErrorModal from "../../components/modals/errorModal";
+import DangerModal from "../../components/modals/dangerModal";
 import SuccessModal from "../../components/modals/successModal";
 import ListWithAdd from "../../components/listWithAdd";
 
@@ -116,14 +116,13 @@ const AddHeroModal = ({show, onHide}) => {
                     <Button variant="outline-danger" onClick={onHide}>Закрити</Button>
                     <Button variant="outline-success" onClick={addHero}>Додати</Button>
                 </Modal.Footer>
-
-                <ErrorModal
-                    error={'Hero already exists. Create somebody else'}
+                <DangerModal
+                    message={'Hero already exists. Create somebody else'}
                     onHide={() => setErrorVisible(false)}
-                    onHideOuterModal = {onHide}
+                    closeButtonText={"Close"}
+                    // onHideOuterModal = {onHide}
                     show={errorVisible}
                 />
-
                 <SuccessModal
                     heroId={heroId}
                     message={'Hero has been successfully created.'}

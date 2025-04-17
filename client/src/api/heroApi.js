@@ -28,3 +28,8 @@ export const getHeroById = async (id) => {
     const {data} = await $host.get(`superhero/${id}`)
     return data;
 }
+
+export const deleteHeroById = async (id) => {
+    const {data} = await $host.delete(`superhero/${id}`)
+    return data
+}

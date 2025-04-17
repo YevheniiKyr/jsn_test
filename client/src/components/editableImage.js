@@ -1,11 +1,7 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {Button, Col} from "react-bootstrap";
 
 const EditableImage = ({onDeleteClick, image, url}) => {
-
-    useEffect(()=>{
-        console.log(image)
-    })
 
     return (
         <Col
@@ -15,18 +11,17 @@ const EditableImage = ({onDeleteClick, image, url}) => {
                 display: "flex",
                 justifyContent: "center",
                 marginTop: '0.5rem',
-                position: 'relative'
+                position: 'relative',
+                padding: 0
             }}
         >
             <img
                 src={ url? url : URL.createObjectURL(image)  }
-                style={{cursor: "pointer"}}
+                style={{cursor: "pointer", objectFit: "contain", width: '100%'}}
                 alt={'Preview '}
-                width={'100px'}
-                height={'100px'}
             />
             <Button
-                style={{marginLeft: '4.7rem', position: 'absolute'}}
+                style={{right: '0', position: 'absolute', borderRadius: 0}}
                 variant={'danger'}
                 size={"sm"}
                 onClick={() => onDeleteClick(image.name)}

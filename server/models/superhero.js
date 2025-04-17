@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const Superhero = new mongoose.Schema({
+const SuperheroSchema  = new mongoose.Schema({
     nickname: {type: String, required: true, unique: true},
     real_name: {type: String, required: true, unique: true},
     origin_description: {type: String, required: true, unique: true},
@@ -9,4 +9,4 @@ const Superhero = new mongoose.Schema({
     images: [{type: String, unique: true}]
 })
 
-module.exports = mongoose.model('Superhero', Superhero)
+module.exports = mongoose.model('Superhero', SuperheroSchema)

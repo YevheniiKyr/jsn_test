@@ -1,39 +1,69 @@
 const uuid = require("uuid");
-const path = require("path");
+const cloudinary = require('cloudinary').v2
+const streamifier = require('streamifier')
 const Superhero = require("../models/superhero");
 const CantCreateException = require("../exceptions/CantCreateException");
 const NotFoundException = require("../exceptions/NotFoundException");
-const fs = require("fs");
 const ParamsNotPassed = require("../exceptions/ParamsNotPassed");
+const CloudinaryUploadException = require("../exceptions/CloudinaryUploadException");
+const CloudinaryDeleteException = require("../exceptions/CloudinaryDeleteException");
+
+cloudinary.config({
+    cloud_name: process.env.CLOUD_NAME,
+    api_key: process.env.CLOUD_API_KEY,
+    api_secret: process.env.CLOUD_API_SECRET,
+});
 
 class SuperheroService {
 
-
-    saveFiles = (files) => {
-        let fileNames = []
+    async saveFiles(files) {
         if (!Array.isArray(files)) {
             files = [files]
         }
-        files.map(image => {
-            let fileName = uuid.v4() + '.jpg'
-            image.mv(path.resolve(__dirname, '..', 'static', fileName))
-            fileNames.push(fileName)
-        })
-        return fileNames
+
+        const uploadToCloudinary = (file) => {
+            return new Promise((resolve, reject) => {
+                const uploadStream = cloudinary.uploader.upload_stream(
+                    {
+                        public_id: uuid.v4(),
+                        folder: 'superheroes'
+                    },
+                    (error, result) => {
+                        if (error) {
+                            console.error('Помилка Cloudinary:', error)
+                            return reject(error)
+                        }
+                        resolve(result.public_id)
+                    }
+                )
+                streamifier.createReadStream(file.data).pipe(uploadStream)
+            })
+        }
+
+        const uploadPromises = files.map(file =>
+            uploadToCloudinary(file).catch(err => {
+                console.warn(`Пропущено зображення ${file.name} через помилку: ${err.message}`);
+                return null;
+            })
+        );
+
+        const results = await Promise.all(uploadPromises);
+        return results.filter(id => id !== null);
     }
 
     async create(superhero, images) {
 
         let {nickname, real_name, origin_description, superpowers, catch_phrase} = superhero
         superpowers = JSON.parse(superpowers)
-        let fileNames = this.saveFiles(images)
+        let fileNames = await this.saveFiles(images)
+        if (!fileNames.length) throw new CloudinaryUploadException(`Can't upload files to cloudinary`)
         const hero = await Superhero.create({
             nickname,
             real_name,
-            images: fileNames,
             origin_description,
             superpowers,
-            catch_phrase
+            catch_phrase,
+            images: fileNames
         }).catch(() => {
             throw new CantCreateException('Cant create hero with this fields')
         })
@@ -60,18 +90,22 @@ class SuperheroService {
     }
 
 
-    deleteFile = (filePath) => {
-        fs.unlink(filePath, (err) => {
-            if (err) {
-                console.error(`Error deleting file ${filePath}: ${err}`);
-            } else {
-                console.log(`File ${filePath} has been deleted.`);
-            }
-        });
+    async deleteFiles(publicIds) {
+        if(!publicIds.length) return;
+        const deletePromises = publicIds.map(id =>
+            cloudinary.uploader.destroy(id)
+                .then(result => {
+                    if (result.result !== 'ok') throw new CloudinaryDeleteException(`Can't delete file: ${id}`);
+                })
+                .catch(err => {
+                    throw new CloudinaryDeleteException(`Error deleting ${id}: ${err.message}`);
+                })
+        );
+        await Promise.all(deletePromises);
     }
 
-    async update(superhero, id, images) {
 
+    async update(superhero, id, images) {
         let {
             nickname, real_name, origin_description,
             superpowers, catch_phrase, old_file_names
@@ -82,28 +116,26 @@ class SuperheroService {
         if (!hero) {
             throw new NotFoundException(`Superhero with id ${id} is not found`)
         }
-
         if (old_file_names) {
             if (!Array.isArray(old_file_names)) {
                 old_file_names = [old_file_names]
             }
-            hero.images.map(image => {
-                if (!old_file_names.find(name => name === image)) {
-                    const filePath = path.join(__dirname, '..', 'static', image);
-                    this.deleteFile(filePath)
+            let filesToDelete = [];
+            hero.images.map(fileName => {
+                if (!old_file_names.find(name => name === fileName)) {
+                    filesToDelete.push(fileName);
                 }
             })
+            await this.deleteFiles(filesToDelete)
         } else {
-            hero.images.map(image => {
-                const filePath = path.join(__dirname, '..', 'static', image);
-                this.deleteFile(filePath)
-            })
+           await this.deleteFiles(images)
         }
-
-
-        if (images) fileNames = this.saveFiles(images)
+        if (images) fileNames = await this.saveFiles(images)
         superpowers = JSON.parse(superpowers)
         old_file_names = old_file_names || [];
+        if (!Array.isArray(fileNames)) {
+            fileNames = [fileNames]
+        }
         let newHero = {
             real_name,
             nickname,
@@ -112,21 +144,19 @@ class SuperheroService {
             catch_phrase,
             images: [...old_file_names, ...fileNames]
         }
-        const updatedHero = await Superhero.findByIdAndUpdate(id, newHero, {new: true});
-        return updatedHero
+        return Superhero.findByIdAndUpdate(id, newHero, {new: true});
     }
 
 
     async delete(id) {
-        if (!id) {
-            throw new ParamsNotPassed(`Params wasn't passed:`, id)
-        }
-        const deletedHero = await Superhero.findByIdAndDelete(id);
+        if (!id) throw new ParamsNotPassed(`Params wasn't passed:`, id);
 
-        if (!deletedHero) {
-            throw new NotFoundException(`Superhero with id ${id} is not found`)
+        const hero = await Superhero.findById(id);
+        if (!hero) {
+            throw new NotFoundException(`Superhero with id ${id} is not found`);
         }
-        return deletedHero
+        await this.deleteFiles(hero.images);
+        return Superhero.findByIdAndDelete(id);
     }
 
 

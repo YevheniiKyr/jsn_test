@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Button, Form, Modal, Row} from "react-bootstrap";
 import {updateHero} from "../../api/heroApi";
-import ErrorModal from "../../components/modals/errorModal";
+import DangerModal from "../../components/modals/dangerModal";
 import SuccessModal from "../../components/modals/successModal";
 import EditableImage from "../../components/editableImage";
 import ListWithAdd from "../../components/listWithAdd";
@@ -134,7 +134,7 @@ const EditHeroModal = ({show, onHide, hero, updated}) => {
                                 key={file}
                                 onDeleteClick={() => removeOldFile(file)}
                                 image={file}
-                                url={process.env.REACT_APP_API_URL + file}
+                                url={`https://res.cloudinary.com/${process.env.REACT_APP_CLOUD_NAME}/image/upload/c_scale/${file}`}
                             />)}
                     </Row>
                     <Row style={{marginTop: '1rem'}}>
@@ -144,6 +144,7 @@ const EditHeroModal = ({show, onHide, hero, updated}) => {
                                     <EditableImage
                                         onDeleteClick={() => removeNewImage(image.name)}
                                         image={image}
+                                        key={image.name}
                                     />
                                 )
                             )
@@ -170,12 +171,13 @@ const EditHeroModal = ({show, onHide, hero, updated}) => {
                 <Button variant="outline-success" onClick={editHero}>Save</Button>
             </Modal.Footer>
 
-            <ErrorModal
-                error={'Cant update hero with this fields'}
+            <DangerModal
+                message={'Cant update hero with this fields'}
                 onHide={() => {
                     setErrorVisible(false)
                 }}
-                onHideOuterModal={onHide}
+                closeButtonText={"Close"}
+                // onHideOuterModal={onHide}
                 show={errorVisible}
             />
 

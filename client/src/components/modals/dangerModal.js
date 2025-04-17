@@ -1,7 +1,7 @@
 import React from 'react';
 import {Button, Container, Modal} from "react-bootstrap";
 
-const ErrorModal = ({show, onHide, error}) => {
+const DangerModal = ({show, onHide, message, closeButtonText}) => {
 
 
     return (
@@ -11,17 +11,17 @@ const ErrorModal = ({show, onHide, error}) => {
             centered
         >
             <Modal.Body style={{textAlign: 'center'}}>
-                {error}
+                {message}
             </Modal.Body>
             <Modal.Footer>
                 <Container className={'d-flex justify-content-center'}>
                     <Button style={{marginRight: '3rem'}} variant="outline-danger" onClick={
                         onHide
-                    }>Закрити</Button>
+                    }>{closeButtonText}</Button>
                 </Container>
             </Modal.Footer>
         </Modal>
     );
 }
 
-export default ErrorModal;
+export default DangerModal;
