@@ -39,11 +39,13 @@ A Superhero consists of:
   Api is covered by tests with supertest library.
   Request body is validated with Joi library
 - Client: React js
+- Image hosting: Cloudinary 
 
 
 # What did I learn
 - exception handling in Node js
 - writing tests with supertest library
+- work with cloud hosting
 
 # Program demonstration
 ## Main page
